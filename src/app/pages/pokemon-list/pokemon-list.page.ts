@@ -96,20 +96,5 @@ typeColor(type: string): string {
     };
     return colors[type] || '#68A090';
   }
-
-
-favorites: any[] = [];
-
-toggleFavorite(pokemon: any) {
-  const idx = this.favorites.findIndex(fav => fav.name === pokemon.name);
-  if (idx > -1) {
-    this.favorites.splice(idx, 1); // Remove if already favorited
-  } else {
-    this.favorites.push(pokemon); // Add to favorites
-  }
-}
-
-isFavorite(pokemon: any): boolean {
-  return this.favorites.some(fav => fav.name === pokemon.name);
-}
+  
 }
