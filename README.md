@@ -5,9 +5,9 @@ Tive que dar bastante ênfase na documentação e procurei fazer um desenvolvime
 ## Como adicionar imagens ao seu README
 
 
-[Imagem 1](src/public/imagem_lista.png)
-[Imagem 2](src/public/imagem_lista_favoritos.png)
-[Imagem 2](src/public/imagem_pokemon_card.png)
+![Imagem 1](src/public/imagem_lista.png)
+![Imagem 2](src/public/imagem_lista_favoritos.png)
+![Imagem 2](src/public/imagem_pokemon_card.png)
 
 
 
