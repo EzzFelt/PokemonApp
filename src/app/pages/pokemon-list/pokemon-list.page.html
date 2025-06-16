@@ -10,12 +10,55 @@
     <p class="ion-padding">{{ error }}</p>
   </ion-text>
 
+  <!-- Favorites Section -->
+  <div class="favorites-section" *ngIf="favorites.length > 0">
+    <h2>Favorites</h2>
+    <div class="pokemon-grid">
+      <div
+        class="pokemon-card"
+        *ngFor="let pokemon of favorites; trackBy: trackByName"
+        [routerLink]="['/pokemon-detail', pokemon.name]"
+      >
+        <ion-button
+          fill="clear"
+          class="favorite-btn"
+          (click)="toggleFavorite(pokemon); $event.stopPropagation(); $event.preventDefault();"
+        >
+          <ion-icon [name]="isFavorite(pokemon) ? 'star' : 'star-outline'"></ion-icon>
+        </ion-button>
+        <img
+          [src]="pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default"
+          [alt]="pokemon.name"
+          class="pokemon-img"
+        />
+        <div class="pokemon-name">{{ pokemon.name | titlecase }}</div>
+        <div class="pokemon-types">
+          <span
+            class="pokemon-type"
+            *ngFor="let t of pokemon.types"
+            [ngStyle]="{ 'background-color': typeColor(t.type.name) }"
+          >
+            {{ t.type.name | titlecase }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Pokémon List -->
   <div class="pokemon-grid" *ngIf="pokemonDetails && !loading && !error">
     <div
       class="pokemon-card"
       *ngFor="let pokemon of pokemonDetails; trackBy: trackByName"
       [routerLink]="['/pokemon-detail', pokemon.name]"
     >
+      <ion-button
+        fill="clear"
+        class="favorite-btn"
+        (click)="toggleFavorite(pokemon); $event.stopPropagation(); $event.preventDefault();"
+      >
+        Fav
+      </ion-button>
       <img
         [src]="pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default"
         [alt]="pokemon.name"
@@ -34,6 +77,7 @@
     </div>
   </div>
 
+  <!-- Pagination -->
   <ion-grid *ngIf="pokemonList && !loading && !error">
     <ion-row>
       <ion-col>
