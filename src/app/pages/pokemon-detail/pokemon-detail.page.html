@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{ pokemon?.name ? (pokemon?.name | titlecase) : 'Pokémon Detail' }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Spinner de carregamento -->
+  <div class="ion-padding" *ngIf="loading && !error">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Carregando detalhes...</p>
+  </div>
+
+  <!-- Mensagem de erro -->
+  <ion-text color="danger" *ngIf="error">
+    <p class="ion-padding">{{ error }}</p>
+  </ion-text>
+
+  <!-- Conteúdo do Pokémon -->
+  <ion-card *ngIf="pokemon && !loading && !error" class="pokemon-detail-card">
+    <div class="close-btn-wrapper">
+      <ion-button class="close-btn" [routerLink]="['/']" fill="clear">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </div>
+    <img
+      *ngIf="pokemon.sprites?.other?.['official-artwork']?.front_default"
+      [src]="pokemon.sprites?.other?.['official-artwork']?.front_default"
+      [alt]="pokemon.name"
+      style="width: 100%; max-width: 300px; margin: auto; display: block;"
+    />
+
+    <ion-card-header>
+      <ion-card-title>{{ pokemon?.name && (pokemon?.name | titlecase) || 'Pokémon Detail' }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p><strong>Altura:</strong> {{ pokemon.height / 10 }} m</p>
+      <p><strong>Peso:</strong> {{ pokemon.weight / 10 }} kg</p>
+
+      <p>
+        <strong>Tipos:</strong>
+        <span *ngFor="let t of pokemon.types; let last = last">
+          {{ t.type.name | titlecase }}<span *ngIf="!last">, </span>
+        </span>
+      </p>
+
+      <p>
+        <strong>Habilidades:</strong>
+        <span *ngFor="let a of pokemon.abilities; let last = last">
+          {{ a.ability.name | titlecase }}<span *ngIf="!last">, </span>
+        </span>
+      </p>
+
+      <p>
+        <strong>Estatísticas:</strong><br />
+        <ng-container *ngFor="let s of pokemon.stats">
+          {{ s.stat.name | titlecase }}: {{ s.base_stat }}<br />
+        </ng-container>
+      </p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
