@@ -96,5 +96,24 @@ typeColor(type: string): string {
     };
     return colors[type] || '#68A090';
   }
+
+  favoriteNames: Set<string> = new Set();
+
+toggleFavorite(pokemon: any) {
+  if (this.favoriteNames.has(pokemon.name)) {
+    this.favoriteNames.delete(pokemon.name);
+  } else {
+    this.favoriteNames.add(pokemon.name);
+  }
+  localStorage.setItem('favoriteNames', JSON.stringify(Array.from(this.favoriteNames)));
+}
+
+isFavorite(pokemon: any): boolean {
+  return this.favoriteNames.has(pokemon.name);
+}
+
+get favorites(): any[] {
+  return this.pokemonDetails.filter(p => this.isFavorite(p));
+}
   
 }
