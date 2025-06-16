@@ -11,7 +11,7 @@
   </ion-text>
 
   <!-- Favorites Section -->
-  <div class="favorites-section" *ngIf="favorites.length > 0">
+  <div class="favorites-section" *ngIf="favorites && favorites.length > 0">
     <h2>Favorites</h2>
     <div class="pokemon-grid">
       <div
@@ -20,11 +20,12 @@
         [routerLink]="['/pokemon-detail', pokemon.name]"
       >
         <ion-button
-          fill="clear"
+          fill="solid"
+          color="danger"
           class="favorite-btn"
-          (click)="toggleFavorite(pokemon); $event.stopPropagation(); $event.preventDefault();"
+          (click)="$event.stopPropagation(); $event.preventDefault(); toggleFavorite(pokemon)"
         >
-          <ion-icon [name]="isFavorite(pokemon) ? 'star' : 'star-outline'"></ion-icon>
+          Unfavorite
         </ion-button>
         <img
           [src]="pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default"
@@ -57,7 +58,7 @@
         class="favorite-btn"
         (click)="toggleFavorite(pokemon); $event.stopPropagation(); $event.preventDefault();"
       >
-        Fav
+        Favorite
       </ion-button>
       <img
         [src]="pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default"
