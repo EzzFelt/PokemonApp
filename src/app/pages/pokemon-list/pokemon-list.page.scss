@@ -56,3 +56,19 @@ ion-button{
   color: yellow;
 }
 
+button-native {
+  --background: transparent;
+  --color: #FFD700;
+  --border-radius: 20px;
+  --padding: 8px 16px;
+  --font-size: 1rem;
+  --font-weight: 600;
+  --text-transform: none;
+  --box-shadow: none;
+  transition: all 0.3s ease;
+}
+
+.unfavorite{
+  color: red;
+}
+
