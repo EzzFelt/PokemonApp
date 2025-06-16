@@ -19,6 +19,7 @@ export class PokemonDetailPage implements OnInit {
   pokemon: Pokemon | null = null;
   loading = false;
   error: string | null = null;
+  favorites: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -36,6 +37,18 @@ export class PokemonDetailPage implements OnInit {
   });
 }
 
+  toggleFavorite(pokemon: Pokemon){
+    const index = this.favorites.findIndex(fav => fav.id === pokemon.id);
+    if (index > -1) {
+      this.favorites.splice(index, 1);
+    } else {
+      this.favorites.push(pokemon);
+    }
+  }
+
+  isFavorite(pokemon: Pokemon): boolean {
+    return this.favorites.some(fav => fav.id === pokemon.id);
+  }
 
   fetchPokemon(name: string): void {
     this.loading = true;
