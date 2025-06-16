@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Pokémon List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="body custom-content">
+  <ion-spinner *ngIf="loading" name="crescent" class="ion-margin"></ion-spinner>
+  <ion-text color="danger" *ngIf="error">
+    <p class="ion-padding">{{ error }}</p>
+  </ion-text>
+
+  <div class="pokemon-grid" *ngIf="pokemonDetails && !loading && !error">
+    <div
+      class="pokemon-card"
+      *ngFor="let pokemon of pokemonDetails; trackBy: trackByName"
+      [routerLink]="['/pokemon-detail', pokemon.name]"
+    >
+      <img
+        [src]="pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default"
+        [alt]="pokemon.name"
+        class="pokemon-img"
+      />
+      <div class="pokemon-name">{{ pokemon.name | titlecase }}</div>
+      <div class="pokemon-types">
+        <span
+          class="pokemon-type"
+          *ngFor="let t of pokemon.types"
+          [ngStyle]="{ 'background-color': typeColor(t.type.name) }"
+        >
+          {{ t.type.name | titlecase }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <ion-grid *ngIf="pokemonList && !loading && !error">
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" (click)="prevPage()" [disabled]="!pokemonList?.previous">Previous</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block" (click)="nextPage()" [disabled]="!pokemonList?.next">Next</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
