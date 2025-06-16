@@ -20,6 +20,15 @@
 
   <!-- Conteúdo do Pokémon -->
   <ion-card *ngIf="pokemon && !loading && !error" class="pokemon-detail-card">
+    <div class="favorite-btn-wrapper">
+  <ion-button
+    fill="clear"
+    class="favorite-btn"
+    (click)="toggleFavorite(pokemon); $event.stopPropagation(); $event.preventDefault();"
+  >
+    Favoritar
+  </ion-button>
+</div>
     <div class="close-btn-wrapper">
       <ion-button class="close-btn" [routerLink]="['/']" fill="clear">
         <ion-icon name="close" slot="icon-only"></ion-icon>
